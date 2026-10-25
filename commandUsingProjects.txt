@@ -1,0 +1,173 @@
+
+Block 10 · ~35 min · hands-on
+LangChain:
+snap it together
+Open the official Python website:
+Download Python 3.13.9 for Windows1. Download Windows installer (64-bit).
+2. Run the installer and complete the installation.
+3. Keep Python 3.15 installed; you don't need to uninstall it.
+
+
+
+=> py -0p
+
+=> py -3.13 --version
+
+=> cd "D:\AI Infusing Learning\ScalerProjects\AI Learning 2"
+
+PS D:\AI Infusing Learning\ScalerProjects\AI Learning> py -3.13 -m venv .venv313
+PS D:\AI Infusing Learning\ScalerProjects\AI Learning> .\.venv313\Scripts\Activate.ps1
+
+
+
+(.venv313) PS D:\AI Infusing Learning\ScalerProjects\AI Learning> python -c "import langchain, langchain_openai; print('Installation successful')"
+Installation successful
+(.venv313) PS D:\AI Infusing Learning\ScalerProjects\AI Learning> py -m pip install langchain-openai
+
+
+(.venv313) PS D:\AI Infusing Learning\ScalerProjects> cd '.\Al Learning 2\'
+(.venv313) PS D:\AI Infusing Learning\ScalerProjects\Al Learning 2> py -m pip install langchain-openai
+
+
+(.venv313) PS D:\AI Infusing Learning\ScalerProjects\Al Learning 2> python -m pip install -U langchain-openai
+
+(.venv313) PS D:\AI Infusing Learning\ScalerProjects\Al Learning 2> python -m pip show langchain-openai
+Name: langchain-openai
+Version: 1.7.2
+Summary: An integration package connecting OpenAI and LangChain
+Home-page: https://docs.langchain.com/oss/python/integrations/providers/openai
+Author:
+Author-email:
+License: MIT
+Location: D:\AI Infusing Learning\ScalerProjects\AI Learning\.venv313\Lib\site-packages
+Requires: certifi, langchain-core, openai, tiktoken
+Required-by:
+
+
+(.venv313) PS D:\AI Infusing Learning\ScalerProjects\Al Learning 2> python -c "from langchain_openai import ChatOpenAI; print('Import successful')"
+Import successful
+
+
+
+summarizer_langchain.py
+-----------------------
+
+from langchain_openai import ChatOpenAI
+from langchain_core.prompts import ChatPromptTemplate
+from langchain_core.output_parsers import StrOutputParser
+from dotenv import load_dotenv
+from scraper import fetch_website_contents   # reuse Class 1's scraper
+load_dotenv()
+
+prompt = ChatPromptTemplate.from_template(            # ①
+    "Give a short, friendly summary of this website:\n\n{website}")
+
+model  = ChatOpenAI(model="gpt-4o-mini", temperature=0.3)   # ②
+
+parser = StrOutputParser()                             # ③
+
+chain = prompt | model | parser                        # ④
+
+def summarize(url):
+    return chain.invoke({"website": fetch_website_contents(url)})   # ⑤
+
+print(summarize("https://anthropic.com"))
+
+
+
+
+----------------------------------------------------------
+
+(.venv313) PS D:\AI Infusing Learning\ScalerProjects\Al Learning 2> python .\summarizer_langchain.py
+Traceback (most recent call last):
+  File "D:\AI Infusing Learning\ScalerProjects\Al Learning 2\summarizer_langchain.py", line 4, in <module>
+    from dotenv import load_dotenv
+ModuleNotFoundError: No module named 'dotenv'
+
+(.venv313) PS D:\AI Infusing Learning\ScalerProjects\Al Learning 2> python -m pip install python-dotenv
+
+
+
+
+(.venv313) PS D:\AI Infusing Learning\ScalerProjects\Al Learning 2> python .\summarizer_langchain.py
+Traceback (most recent call last):
+  File "D:\AI Infusing Learning\ScalerProjects\Al Learning 2\summarizer_langchain.py", line 5, in <module>
+    from scraper import fetch_website_contents   # reuse Class 1's scraper
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ModuleNotFoundError: No module named 'scraper'
+
+
+
+
+
+(.venv313) PS D:\AI Infusing Learning\ScalerProjects\Al Learning 2> python .\summarizer_langchain.py
+Traceback (most recent call last):
+  File "D:\AI Infusing Learning\ScalerProjects\Al Learning 2\summarizer_langchain.py", line 5, in <module>
+    from scraper import fetch_website_contents   # reuse Class 1's scraper
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\AI Infusing Learning\ScalerProjects\Al Learning 2\scraper.py", line 5, in <module>
+    from bs4 import BeautifulSoup
+ModuleNotFoundError: No module named 'bs4'
+
+
+
+(.venv313) PS D:\AI Infusing Learning\ScalerProjects\Al Learning 2> python -m pip install beautifulsoup4
+Collecting beautifulsoup4
+
+
+(.venv313) PS D:\AI Infusing Learning\ScalerProjects\Al Learning 2> python -c "from bs4 import BeautifulSoup; print('BeautifulSoup import successful')"
+BeautifulSoup import successful
+
+
+
+File "D:\AI Infusing Learning\ScalerProjects\Al Learning 2\summarizer_langchain.py", line 11, in <module>
+    model  = ChatOpenAI(model="gpt-4o-mini", temperature=0.3)   # ②
+  File "D:\AI Infusing Learning\ScalerProjects\AI Learning\.venv313\Lib\site-packages\langchain_core\load\serializable.py", line 136, in __init__
+    super().__init__(*args, **kwargs)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "D:\AI Infusing Learning\ScalerProjects\AI Learning\.venv313\Lib\site-packages\pydantic\main.py", line 280, in __init__
+    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
+  File "D:\AI Infusing Learning\ScalerProjects\AI Learning\.venv313\Lib\site-packages\langchain_openai\chat_models\base.py", line 1540, in validate_environment
+    self.root_async_client = openai.AsyncOpenAI(
+                             ~~~~~~~~~~~~~~~~~~^
+        **client_params,
+        ^^^^^^^^^^^^^^^^
+        **async_specific,  # type: ignore[arg-type]
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\AI Infusing Learning\ScalerProjects\AI Learning\.venv313\Lib\site-packages\openai\_client.py", line 1081, in __init__
+    raise OpenAIError(
+        "Missing credentials. Please pass an `api_key`, `workload_identity`, `admin_api_key`, or set the `OPENAI_API_KEY` or `OPENAI_ADMIN_KEY` environment variable."
+    )
+openai.OpenAIError: Missing credentials. Please pass an `api_key`, `workload_identity`, `admin_api_key`, or set the `OPENAI_API_KEY` or `OPENAI_ADMIN_KEY` environment variable.
+
+
+
+To fix the above issur
+Step 1: Create a .env file
+In your project folder:
+D:\AI Infusing Learning\ScalerProjects\Al Learning 2
+
+OPENAI_API_KEY=your_openai_api_key_here
+
+(.venv313) PS D:\AI Infusing Learning\ScalerProjects\Al Learning 2> python -c "from dotenv import load_dotenv; import os; load_dotenv(); print('API key loaded:', bool(os.getenv('OPENAI_API_KEY')))"
+API key loaded: True
+
+
+
+pip install openai gradio python-dotenv
+$ python app.py
+
+
+
+
+
+
+
+
+
+
+
+
+
