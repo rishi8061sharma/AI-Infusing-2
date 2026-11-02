@@ -2,9 +2,9 @@
 import os
 import json
 from pathlib import Path
-from dotenv import load_dotenv
 from groq import Groq
-
+from dotenv import load_dotenv
+from pathlib import Path
 load_dotenv(Path(__file__).resolve().parent / ".env")
 
 client = Groq(api_key=os.getenv("GROQ_API_KEY"))
@@ -54,7 +54,6 @@ def agent(user_message):
             tools=tools,
             tool_choice="auto"
         )
-
         msg = response.choices[0].message
         messages.append(msg)
 

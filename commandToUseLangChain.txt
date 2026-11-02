@@ -1,0 +1,46 @@
+D:\AI Infusing Learning\ScalerProjects\AILearning2_grok>py -3.13 -m venv .venv313
+
+D:\AI Infusing Learning\ScalerProjects\AILearning2_grok>.venv313\Scripts\activate.bat
+
+(.venv313) D:\AI Infusing Learning\ScalerProjects\AILearning2_grok>python -m pip install --upgrade pip setuptools wheel
+
+
+(.venv313) D:\AI Infusing Learning\ScalerProjects\AILearning2_grok>python -m pip install langchain-openai python-dotenv
+
+(.venv313) D:\AI Infusing Learning\ScalerProjects\AILearning2_grok>py -0p
+  *               D:\AI Infusing Learning\ScalerProjects\AILearning2_grok\.venv313\Scripts\python.exe
+ -V:3.15          C:\Users\LENOVO\AppData\Local\Programs\Python\Python315\python.exe
+ -V:3.13          C:\Users\LENOVO\AppData\Local\Programs\Python\Python313\python.exe
+ -V:Astral/CPython3.15.0 C:\Users\LENOVO\AppData\Roaming\uv\python\cpython-3.15.0-windows-x86_64-none\python.exe
+ -V:Astral/CPython3.11.17 C:\Users\LENOVO\AppData\Roaming\uv\python\cpython-3.11.17-windows-x86_64-none\python.exe
+
+(.venv313) D:\AI Infusing Learning\ScalerProjects\AILearning2_grok>python -m pip install beautifulsoup4
+
+
+(.venv313) D:\AI Infusing Learning\ScalerProjects\AILearning2_grok>python -m pip install requests
+
+(.venv313) D:\AI Infusing Learning\ScalerProjects\AILearning2_grok>python summarizer_langchain2.py
+**Anthropic at a glance**
+
+Anthropic is a public‑benefit AI company that puts safety front‑and‑center. They build powerful language models—Claude Haiku 5.5 (fast, small‑scale), Claude Sonnet 5.5 (speedier and cheaper than its predecessor), and Claude Opus 5.5 (top‑tier for coding and knowledge work)—and share detailed model cards and system docs.
+
+Beyond products, Anthropic runs the Anthropic Institute to tackle big societal challenges from AI, publishes its “Claude’s Constitution” (the model’s guiding values), and maintains a voluntary “responsible scaling policy” to manage catastrophic risks. Their 2026 Public Benefit Report shows how they balance shareholder returns with broader public good.
+
+In short: Anthropic builds cutting‑edge, safety‑focused AI while actively researching and advocating for responsible, beneficial AI deployment.
+
+
+(.venv313) D:\AI Infusing Learning\ScalerProjects\AILearning2_grok>python agent.py
+Traceback (most recent call last):
+  File "D:\AI Infusing Learning\ScalerProjects\AILearning2_grok\agent.py", line 5, in <module>
+    from groq import Groq
+ModuleNotFoundError: No module named 'groq'
+
+(.venv313) D:\AI Infusing Learning\ScalerProjects\AILearning2_grok>python -m pip install groq
+
+(.venv313) D:\AI Infusing Learning\ScalerProjects\AILearning2_grok>python agent.py
+🔧 Tool called: get_price(shoes)
+The shoes are priced at **₹799**.
+
+(.venv313) D:\AI Infusing Learning\ScalerProjects\AILearning2_grok>python app.py
+
+(.venv313) D:\AI Infusing Learning\ScalerProjects\AILearning2_grok>python -m pip install gradio
